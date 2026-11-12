@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<style>
+  html, body, #charadex-body {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+  }
+</style>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <!-- ----------------------------------------------------------------- -->
+  <!-- About Your Site                                                   -->
+  <!-- ----------------------------------------------------------------- -->
+  <link rel="shortcut icon" type="image/png" href="assets/favicon.png" />
+  <title>Breeding</title>
+  <meta name="title" content="Breeding" />
+  <meta name="type" content="website" />
+  <meta name="url" content="https://www.charadex.com/" />
+  <meta name="image" content="assets/meta.png" />
+  <meta name="description" content="How to breed and breeding your yokuryu!">
+
+  <!-- No AI scraping directives -->
+  <meta name="robots" content="noai">
+  <meta name="robots" content="noimageai">
+
+
+  <!-- ----------------------------------------------------------------- -->
+  <!-- Styles                                                            -->
+  <!-- ----------------------------------------------------------------- -->
+
+  <!-- Bootstrap CSS -->
+  <!-- Using Bootstrap 4.5 because its closest to Toyhou.se's current version -->
+  <!-- https://getbootstrap.com/docs/4.5/getting-started/introduction/ -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+  <!-- ----------------------------------------------------------------- -->
+  <!-- Optional Styles                                                   -->
+  <!-- ----------------------------------------------------------------- -->
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="styles/css/charadex.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Comfortaa:500" rel="stylesheet">
+
+
+</head>
+
+<body id="charadex-body">
+
+
+  <!-- --------------------------------------------------------------------
+  <-- Header
+  <-------------------------------------------------------------------- -->
+  <div class="load-html" id="header" data-source="includes/header.html"></div>
+
+
+  <!-- --------------------------------------------------------------------
+  <-- Main List
+  <-------------------------------------------------------------------- -->
+  <div class="container" id="main-container">
+    <div class="card p-md-5 p-4">
+
+      <!-- General Info
+      <-------------------------------------------------------------------- -->
+      <div class="p-3">
+        <h3 class="text-primary mb-3">About Breeding and Breeding</h3>
+        <div class="px-4">
+              <h1 style="margin:0;">Yokuryu Breeding Roller</h1>
+    <button id="mode-btn" type="button" onclick="toggleMode()" style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;">
+      Switch to Test Mode (Unlock Roller)
+    </button>
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label><strong>Username (Owner):</strong> <input id="user" placeholder="Username..." style="padding:5px;width:190px;" /></label>
+    </div>
+    <div class="field">
+      <label><strong>Parent 1 ID:</strong> <input id="p1" placeholder="e.g. PLA0001" style="padding:5px;width:105px;" /></label>
+      <label style="margin-left:8px;"><input type="checkbox" id="m1" onchange="syncM(1)" /> Mystery</label>
+    </div>
+    <div class="field">
+      <label><strong>Parent 2 ID:</strong> <input id="p2" placeholder="e.g. PLA0002" style="padding:5px;width:105px;" /></label>
+      <label style="margin-left:8px;"><input type="checkbox" id="m2" onchange="syncM(2)" /> Mystery</label>
+      <button type="button" onclick="bothMystery()" style="margin-left:10px;font-weight:normal;">Both Mystery</button>
+    </div>
+
+    <div class="potions">
+      <strong>Breeding Items (Optional):</strong>
+      <label><input type="checkbox" class="itm" value="Minor Breeding Potion" /> <strong>Minor Breeding Potion</strong> — At least 2 genos per clutch</label>
+      <label><input type="checkbox" class="itm" value="Major Breeding Potion" /> <strong>Major Breeding Potion</strong> — Maximum sized clutch</label>
+      <label><input type="checkbox" class="itm" value="Minor Mutation Potion" /> <strong>Minor Mutation Potion</strong> — 1.5x genetic mutation odds</label>
+      <label><input type="checkbox" class="itm" value="Major Mutation Potion" /> <strong>Major Mutation Potion</strong> — 3x genetic mutation odds</label>
+    </div>
+
+    <button id="load-btn" type="button" onclick="loadRoller()">Verify &amp; Load into Roller</button>
+    <div id="status" style="margin-top:8px;font-weight:bold;"></div>
+  </div>
+
+  <div id="banner" class="banner" style="background:#e8f0fe;color:#1967d2;">
+ <div style="position: relative; width: 100%; height: 760px;">
+    <div 
+      id="shield" 
+      title="Locked in Official Mode. Click 'Switch to Test Mode' above to edit freely."
+      style="position: absolute; top: 0; left: 0; right: 0; bottom: 175px; z-index: 10; background: rgba(255,255,255,0.01); cursor: not-allowed;">
+    </div>
+    <iframe 
+      id="frame" 
+      src="https://null.perchance.org/9q3affunn2" 
+      style="width: 100%; height: 760px; border: 1px solid #ccc; border-radius: 0 0 8px 8px; display: block;" 
+      title="Yokuryu Breeding Roller">
+    </iframe>
+  </div>
+    Official Breeding Mode: Roller inputs are locked. Only "Roll Clutch" is clickable below.
+  </div>
+  <div class="frame-wrap">
+    <div id="shield" title="Locked in Official Mode. Click 'Switch to Test Mode' above to edit freely."></div>
+    <iframe id="frame" src="https://perchance.org" title="Yokuryu Breeding Roller"></iframe>
+  </div>
+
+  <script>
+    const URL = "https://script.google.com/u/0/home/projects/1QSeK8p7D5yDGVxkZvYL2ZI_P6f3RZFYH_uWB-gV0TmTOZUlOMZQjIPGK";
+    const $ = id => document.getElementById(id);
+    let testMode = false;
+
+    $("user").value = localStorage.getItem("yokuryu_owner") || "";
+    const syncM = n => { $("p" + n).disabled = $("m" + n).checked; if ($("m" + n).checked) $("p" + n).value = ""; };
+    const bothMystery = () => { $("m1").checked = $("m2").checked = true; syncM(1); syncM(2); };
+
+    function toggleMode() {
+      testMode = !testMode;
+      $("shield").style.display = testMode ? "none" : "block";
+      $("mode-btn").innerText = testMode ? "Exit Test Mode (Lock Roller)" : "Switch to Test Mode (Unlock Roller)";
+      $("mode-btn").style.background = testMode ? "#d4edda" : "#fff3cd";
+      $("mode-btn").style.borderColor = testMode ? "#28a745" : "#ffc107";
+      $("load-btn").innerText = testMode ? "Load into Test Roller (Skip Sheet Check)" : "Verify & Load into Roller";
+      $("banner").style.background = testMode ? "#fff3cd" : "#e8f0fe";
+      $("banner").style.color = testMode ? "#856404" : "#1967d2";
+      $("banner").innerText = testMode
+        ? "Test Mode Active: Roller unlocked & item inventory check disabled. Rolls will NOT log to Masterlist."
+        : 'Official Breeding Mode: Roller inputs are locked. Only "Roll Clutch" is clickable below.';
+      $("status").innerText = "";
+      if (testMode) $("frame").contentWindow?.postMessage({ type: "ENTER_TEST_MODE" }, "*");
+    }
+
+    async function loadRoller() {
+      const status = $("status"), btn = $("load-btn");
+      const m1 = $("m1").checked, m2 = $("m2").checked;
+      const p1 = $("p1").value.trim(), p2 = $("p2").value.trim();
+      const items = [...document.querySelectorAll(".itm:checked")].map(c => c.value);
+
+      if (testMode) {
+        status.style.color = "#856404";
+        status.innerText = "Test Mode: Loaded items directly (inventory check skipped).";
+        $("frame").contentWindow?.postMessage({
+          type: "LOAD_BREEDING_DATA", owner: "", isTestMode: true,
+          parent1: { isMystery: m1, id: p1, masterlist: { genoPheno: "Mystery" } },
+          parent2: { isMystery: m2, id: p2, masterlist: { genoPheno: "Mystery" } },
+          items
+        }, "*");
+        return;
+      }
+
+      const owner = $("user").value.trim();
+      if (!owner) return (status.style.color = "#d93025", status.innerText = "Error: Enter your username first.");
+      if ((!m1 && !p1) || (!m2 && !p2)) return (status.style.color = "#d93025", status.innerText = "Error: Enter both parent IDs or check Mystery.");
+      localStorage.setItem("yokuryu_owner", owner);
+
+      btn.disabled = true;
+      status.style.color = "#555";
+      status.innerText = "Verifying parents & inventory...";
+
+      try {
+        const payload = { action: "prepare", owner, parent1: { isMystery: m1, id: p1 }, parent2: { isMystery: m2, id: p2 }, items };
+        const res = await fetch(URL + "?payload=" + encodeURIComponent(JSON.stringify(payload)), { redirect: "follow" });
+        const data = JSON.parse(await res.text());
+
+        if (data.status === "error") {
+          status.style.color = "#d93025";
+          status.innerText = data.message;
+        } else {
+          status.style.color = "#188038";
+          status.innerText = "Verified! Parents & items loaded into the locked roller.";
+          $("frame").contentWindow?.postMessage({
+            type: "LOAD_BREEDING_DATA", owner: data.owner, isTestMode: false,
+            parent1: { isMystery: m1, id: p1, masterlist: data.parent1Data },
+            parent2: { isMystery: m2, id: p2, masterlist: data.parent2Data },
+            items: data.verifiedItems
+          }, "*");
+        }
+      } catch (e) {
+        status.style.color = "#d93025";
+        status.innerText = "Connection error: " + e.message;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+  </script>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- --------------------------------------------------------------------
+  <-- Footer
+  <-------------------------------------------------------------------- -->
+  <div class="load-html" id="footer" data-source="includes/footer.html"></div>
+
+  <!-- ----------------------------------------------------------------- -->
+  <!-- JS                                                                -->
+  <!-- ----------------------------------------------------------------- -->
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+  <!-- Charadex Script -->
+  <script src="styles/js/pages/base.js" type="module"></script>
+
+
+</body>
+
+</html>
