@@ -151,7 +151,12 @@
         ? "Test Mode Active: Roller unlocked & item inventory check disabled. Rolls will NOT log to Masterlist."
         : 'Official Breeding Mode: Roller inputs are locked. Only "Roll Clutch" is clickable below.';
       $("status").innerText = "";
-      if (testMode) $("frame").contentWindow?.postMessage({ type: "ENTER_TEST_MODE" }, "*");
+
+      // Do NOT change frame.src here — only send a message to the already-loaded iframe
+      const frame = $("frame");
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: "ENTER_TEST_MODE" }, "*");
+      }
     }
 
     async function loadRoller() {
