@@ -108,8 +108,11 @@
     <div id="status" style="margin-top:8px;font-weight:bold;"></div>
   </div>
 
-  <div id="banner" class="banner" style="background:#e8f0fe;color:#1967d2;">
- <div style="position: relative; width: 100%; height: 760px;">
+ <div id="banner" style="padding: 8px 12px; border-radius: 6px 6px 0 0; border: 1px solid #ccc; border-bottom: none; font-size: 13px; font-weight: bold; background: #e8f0fe; color: #1967d2;">
+    Official Breeding Mode: Roller inputs are locked. Only "Roll Clutch" is clickable below.
+  </div>
+
+  <div style="position: relative; width: 100%; height: 760px;">
     <div 
       id="shield" 
       title="Locked in Official Mode. Click 'Switch to Test Mode' above to edit freely."
@@ -122,15 +125,9 @@
       title="Yokuryu Breeding Roller">
     </iframe>
   </div>
-    Official Breeding Mode: Roller inputs are locked. Only "Roll Clutch" is clickable below.
-  </div>
-  <div class="frame-wrap">
-    <div id="shield" title="Locked in Official Mode. Click 'Switch to Test Mode' above to edit freely."></div>
-    <iframe id="frame" src="https://perchance.org" title="Yokuryu Breeding Roller"></iframe>
-  </div>
 
   <script>
-    const URL = "https://script.google.com/u/0/home/projects/1QSeK8p7D5yDGVxkZvYL2ZI_P6f3RZFYH_uWB-gV0TmTOZUlOMZQjIPGK";
+    const URL = "https://google.com";
     const $ = id => document.getElementById(id);
     let testMode = false;
 
@@ -152,7 +149,6 @@
         : 'Official Breeding Mode: Roller inputs are locked. Only "Roll Clutch" is clickable below.';
       $("status").innerText = "";
 
-      // Do NOT change frame.src here — only send a message to the already-loaded iframe
       const frame = $("frame");
       if (frame && frame.contentWindow) {
         frame.contentWindow.postMessage({ type: "ENTER_TEST_MODE" }, "*");
